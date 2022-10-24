@@ -1,5 +1,5 @@
 import 'package:e_commerceapp/pages/food/popular_food_detail.dart';
-import 'package:e_commerceapp/pages/food/recomended_food_detail.dart';
+import 'package:e_commerceapp/pages/food/recommended_food_detail.dart';
 import 'package:e_commerceapp/pages/home/food_page_body.dart';
 import 'package:e_commerceapp/routes/route_helper.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
 
       home:  MainFoodPage(),
-     // initialRoute: RouteHelper.initiate,
-     // getPages: RouteHelper.routes,
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
+
 
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
@@ -18,12 +19,17 @@ class RecommendedFoodDetails extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
             toolbarHeight: 100,
             title:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children:  [
-                AppIcon(icon: Icons.arrow_back_ios_new),
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+          },
+                    child: AppIcon(icon: Icons.arrow_back_ios_new)),
                 AppIcon(icon: Icons.shopping_cart_outlined)
 
               ],

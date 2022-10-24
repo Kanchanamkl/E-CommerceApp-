@@ -1,7 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:e_commerceapp/models/products_model.dart';
 import 'package:e_commerceapp/pages/food/popular_food_detail.dart';
-import 'package:e_commerceapp/pages/food/recomended_food_detail.dart';
+import 'package:e_commerceapp/pages/food/recommended_food_detail.dart';
 import 'package:e_commerceapp/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,17 +60,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             //color:Colors.white70,
             // color: Colors.cyanAccent,
               height: 320,
-              child: GestureDetector(
-                onTap:(){
-                  Get.to(()=> PopularFoodDetails());
-                },
-                child: PageView.builder(
-                    controller: pageController,
-                    itemCount: popularProducts.popularProductList.length,
-                    itemBuilder: (context, position) {
-                      return _buildPageItem(position ,popularProducts.popularProductList[position]);
-                    }),
-              )):CircularProgressIndicator(
+              child: PageView.builder(
+                  controller: pageController,
+                  itemCount: popularProducts.popularProductList.length,
+                  itemBuilder: (context, position) {
+                    return _buildPageItem(position ,popularProducts.popularProductList[position]);
+                  })):CircularProgressIndicator(
             color: AppColors.mainColor,
 
 
@@ -130,7 +125,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ProductModel recommendedProduct = recommendedProducts.recommendedProductList[index];
               return GestureDetector(
                 onTap:(){
-                  Get.to(()=> RecommendedFoodDetails());
+                  Get.toNamed(RouteHelper.getRecommendedFood());
                 },
                 child: Container(
 
@@ -267,18 +262,23 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-              height: Dimensions.pageViewContainer,
-              margin: EdgeInsets.only(
-                  left: Dimensions.width5, right: Dimensions.width5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
-                  color: index.isEven ? Color(0xFF69C5DF) : Color(0xFFffd379),
-                  image:  DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          AppConstant.BASE_URL+"/uploads/"+popularProduct.img!
-                      )))),
+          GestureDetector(
+            onTap:(){
+              Get.toNamed(RouteHelper.getPopularFood(index));
+            },
+            child: Container(
+                height: Dimensions.pageViewContainer,
+                margin: EdgeInsets.only(
+                    left: Dimensions.width5, right: Dimensions.width5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius30),
+                    color: index.isEven ? Color(0xFF69C5DF) : Color(0xFFffd379),
+                    image:  DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            AppConstant.BASE_URL+"/uploads/"+popularProduct.img!
+                        )))),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(

@@ -1,8 +1,11 @@
+import 'package:e_commerceapp/models/products_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../controllers/popular_product_controller.dart';
+import '../../utils/app_constant.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/app_column.dart';
@@ -14,10 +17,14 @@ import '../../widgets/small_text.dart';
 import '../home/main_food_page.dart';
 
 class PopularFoodDetails extends StatelessWidget {
-  const PopularFoodDetails({Key? key}) : super(key: key);
+  int pagedId;
+   PopularFoodDetails( {Key? key , required this.pagedId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ProductModel product = Get.find<PopularProductController>().popularProductList[pagedId];
+    print("page is id "+pagedId.toString());
+    print("product name is"+product.name.toString());
     return Scaffold(
       backgroundColor:Colors.white ,
       body: Stack(
@@ -30,11 +37,11 @@ class PopularFoodDetails extends StatelessWidget {
             child: Container(
               width:double.maxFinite,
               height:370,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 image: DecorationImage(
                   fit:BoxFit.cover,
-                image: AssetImage(
-                  "assets/image/food0.png"
+                image: NetworkImage(
+                    AppConstant.BASE_URL+"/uploads/"+product.img!,
                 ),
               )
 
@@ -83,15 +90,15 @@ class PopularFoodDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:[
 
-                      const AppColumn(),
+                       AppColumn(text: product.name!),
                       BigText(text: "Introduce"),
                       SizedBox(height: Dimensions.height15),
                       // Expandable text widget
-                      const Expanded(
+                       Expanded(
 
                           child:  SingleChildScrollView(
 
-                              child: ExpendableTextWidget(text: "This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.")
+                              child: ExpendableTextWidget(text:product.description!)
                           ))
 
               ],
