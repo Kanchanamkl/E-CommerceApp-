@@ -1,6 +1,8 @@
 # e_commerceapp
 
 A new Flutter project.
+Popular and Recommended pages are completed.
+
 
 ## Getting Started
 
