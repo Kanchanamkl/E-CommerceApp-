@@ -67,7 +67,6 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
           child: const SingleChildScrollView(
             child: FoodPageBody(
-
             ),
           ),
         ),

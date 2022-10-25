@@ -55,7 +55,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         // slider section
-        GetBuilder<PopularProductController>(builder: (popularProducts) {
+        GetBuilder<PopularProductController>(builder: ( PopularProductController popularProducts) {
           return popularProducts.isLoaded? Container(
             //color:Colors.white70,
             // color: Colors.cyanAccent,
@@ -116,7 +116,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
         // list of food and images
 
-    GetBuilder<RecommendedProductController>(builder:(recommendedProducts){
+    GetBuilder<RecommendedProductController>(builder:( RecommendedProductController recommendedProducts){
         return recommendedProducts.isLoaded? ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -125,7 +125,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ProductModel recommendedProduct = recommendedProducts.recommendedProductList[index];
               return GestureDetector(
                 onTap:(){
-                  Get.toNamed(RouteHelper.getRecommendedFood());
+                  Get.toNamed(RouteHelper.getRecommendedFood(index));
                 },
                 child: Container(
 
