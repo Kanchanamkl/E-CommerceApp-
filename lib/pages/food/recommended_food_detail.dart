@@ -1,9 +1,17 @@
+import 'package:e_commerceapp/controllers/recommended_product_controller.dart';
+import 'package:e_commerceapp/models/products_model.dart';
+import 'package:e_commerceapp/utils/app_constant.dart';
 import 'package:e_commerceapp/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+<<<<<<< HEAD
+import '../../controllers/popular_product_controller.dart';
+=======
+>>>>>>> 976254589d091b957a3089b8403f21634619be01
+import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
@@ -11,19 +19,27 @@ import '../../widgets/expandable_text_widget.dart';
 import '../home/main_food_page.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
-  const RecommendedFoodDetails({Key? key}) : super(key: key);
+   final int foodId;
+   const RecommendedFoodDetails({Key? key, required this.foodId }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    ProductModel recommFood = Get.find<RecommendedProductController>().recommendedProductList[foodId];
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
             toolbarHeight: 100,
             title:Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children:  [
-                AppIcon(icon: Icons.arrow_back_ios_new),
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+          },
+                    child: AppIcon(icon: Icons.arrow_back_ios_new)),
                 AppIcon(icon: Icons.shopping_cart_outlined)
 
               ],
@@ -31,7 +47,7 @@ class RecommendedFoodDetails extends StatelessWidget {
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
               child: Container(
-                child: Center(child: BigText(size: 20, text: "Chinese Side")),
+                child: Center(child: BigText(size: 20, text:recommFood.name!)),
                 // color: Colors.white,
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
@@ -47,8 +63,8 @@ class RecommendedFoodDetails extends StatelessWidget {
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 350,
             flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-              "assets/image/food0.png",
+                background: Image.network(
+                  AppConstant.BASE_URL+"/uploads/"+recommFood.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             ))),
@@ -59,11 +75,12 @@ class RecommendedFoodDetails extends StatelessWidget {
               margin: EdgeInsets.only(
                   left: Dimensions.width20, right: Dimensions.width20),
               child: ExpendableTextWidget(
-                  text:
-                      "This is a tuna cassele that even my picky family loves! The potato chips gThis is a tuna casserole that even my even my picky family loves! The potato chips gThis is a tuna casserole that even myeven my picky family loves! The potato chips gThis is a tuna casserole that even my picky famieven my picky family loves! The potato chips gThis is a tuna casserole that even my picky famieven my picky family loves! The potato chips gThis is a tuna casserole that even my picky fami picky fami picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.This is a tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust.tuna casserole that even my picky family loves! The potato chips give the casserole a crunchy crust."))
-        ])),
+                  text:recommFood.description.toString(),
+              ))])),
       ]),
-      bottomNavigationBar: Container(
+      bottomNavigationBar:GetBuilder<PopularProductController>(builder:(recommProduct){
+
+      return Container(
         width: double.infinity,
         color: Colors.white,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -80,17 +97,28 @@ class RecommendedFoodDetails extends StatelessWidget {
                 top: Dimensions.height10,
                 bottom: Dimensions.height10),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              AppIcon(
+                GestureDetector(
+                onTap:(){
+            recommProduct.setQuantity(false);
+
+
+            },
+             child: AppIcon(
                   icon: Icons.remove,
                   backgroundColor: AppColors.mainColor,
-                  iconColor: Colors.white),
+                  iconColor: Colors.white)),
               SizedBox(width: Dimensions.width30),
-              BigText(text: "\$12.88 X 0"),
+              BigText(text: "\$ ${recommFood.price!} X  ${ recommProduct.quantity.toString()}"),
               SizedBox(width: Dimensions.width30),
-              AppIcon(
-                  icon: Icons.add,
-                  backgroundColor: AppColors.mainColor,
-                  iconColor: Colors.white)
+              GestureDetector(
+                onTap:(){
+                  recommProduct.setQuantity(true);
+                },
+                child: AppIcon(
+                    icon: Icons.add,
+                    backgroundColor: AppColors.mainColor,
+                    iconColor: Colors.white),
+              )
             ]),
           ),
           Container(
@@ -141,7 +169,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                 ]),
           ),
         ]),
-      ),
-    );
+      );},
+    ));
   }
 }
