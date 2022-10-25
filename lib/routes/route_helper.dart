@@ -15,11 +15,11 @@ class RouteHelper{
   static String getInitial()=>'$initial';
   static String getPopularFood(int pageId)=>'$popularFood?pageId=$pageId';
 
-<<<<<<< HEAD
+
   static String getRecommendedFood(int foodId)=>'$recommendedFood?foodId=$foodId';
-=======
-  static String getRecommendedFood()=>'$recommendedFood';
->>>>>>> 976254589d091b957a3089b8403f21634619be01
+
+
+
 
   static List<GetPage> routes=[
     GetPage(name: "/", page:()=>MainFoodPage()),
@@ -31,14 +31,10 @@ class RouteHelper{
       transition: Transition.fadeIn
     ),
     GetPage(name: recommendedFood, page:(){
-<<<<<<< HEAD
+
       var foodId = Get.parameters['foodId'];
       print("Recommended_Food_Page get called");
       return RecommendedFoodDetails(foodId:int.parse(foodId!));
-=======
-      print("Recommended_Food_Page get called");
-      return RecommendedFoodDetails();
->>>>>>> 976254589d091b957a3089b8403f21634619be01
     },
         transition: Transition.leftToRightWithFade
     ),

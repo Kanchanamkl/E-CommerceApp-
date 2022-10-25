@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-<<<<<<< HEAD
 import '../../controllers/popular_product_controller.dart';
-=======
->>>>>>> 976254589d091b957a3089b8403f21634619be01
 import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
@@ -23,9 +20,14 @@ class RecommendedFoodDetails extends StatelessWidget {
    const RecommendedFoodDetails({Key? key, required this.foodId }) : super(key: key);
 
 
+
   @override
   Widget build(BuildContext context) {
+    Get.find<RecommendedProductController>().initProduct();
     ProductModel recommFood = Get.find<RecommendedProductController>().recommendedProductList[foodId];
+
+
+
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
@@ -78,7 +80,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                   text:recommFood.description.toString(),
               ))])),
       ]),
-      bottomNavigationBar:GetBuilder<PopularProductController>(builder:(recommProduct){
+      bottomNavigationBar:GetBuilder<RecommendedProductController>(builder:(recommProduct){
 
       return Container(
         width: double.infinity,
