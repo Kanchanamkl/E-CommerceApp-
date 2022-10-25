@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+<<<<<<< HEAD
 import '../../controllers/popular_product_controller.dart';
+=======
+>>>>>>> 976254589d091b957a3089b8403f21634619be01
 import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';

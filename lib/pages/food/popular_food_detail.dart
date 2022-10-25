@@ -23,9 +23,14 @@ class PopularFoodDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductModel product = Get.find<PopularProductController>().popularProductList[pagedId];
+<<<<<<< HEAD
     Get.find<PopularProductController>().initProduct();
     // print("page is id "+pagedId.toString());
     // print("product name is"+product.name.toString());
+=======
+    print("page is id "+pagedId.toString());
+    print("product name is"+product.name.toString());
+>>>>>>> 976254589d091b957a3089b8403f21634619be01
     return Scaffold(
       backgroundColor:Colors.white ,
       body: Stack(
