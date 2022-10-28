@@ -25,7 +25,7 @@ class ApiClient extends GetConnect implements GetxService{
     try{
       Response response = await get(uri);
       if(response.statusCode==200){
-        print("got");
+        print("got response");
       }else{
         print(" nothing got");
       }

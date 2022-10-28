@@ -28,7 +28,7 @@ class RouteHelper{
       print("Popular_Food_Page get called");
       return PopularFoodDetails(pagedId:int.parse(pageId!));
     },
-      transition: Transition.fadeIn
+      transition: Transition.leftToRightWithFade
     ),
     GetPage(name: recommendedFood, page:(){
 

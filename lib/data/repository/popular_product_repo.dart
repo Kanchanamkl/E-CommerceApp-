@@ -11,7 +11,7 @@ class PopularProductRepo extends GetxService{
   Future<Response> getPopularProductList() async{
     Response res =await apiClient.getData(AppConstant.POPULAR_PRODUCT_URI);
     if(res.statusCode==200){
-      print("got product");
+      print("loaded popular product to repo");
 
     }else{
       print("nothing got");

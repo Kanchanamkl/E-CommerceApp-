@@ -1,3 +1,4 @@
+import 'package:e_commerceapp/pages/cart/cartPage.dart';
 import 'package:e_commerceapp/pages/food/popular_food_detail.dart';
 import 'package:e_commerceapp/pages/food/recommended_food_detail.dart';
 import 'package:e_commerceapp/pages/home/food_page_body.dart';

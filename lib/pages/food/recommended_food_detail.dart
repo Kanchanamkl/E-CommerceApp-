@@ -1,3 +1,4 @@
+import 'package:e_commerceapp/controllers/cart_controller.dart';
 import 'package:e_commerceapp/controllers/recommended_product_controller.dart';
 import 'package:e_commerceapp/models/products_model.dart';
 import 'package:e_commerceapp/utils/app_constant.dart';
@@ -13,6 +14,7 @@ import '../../utils/colors.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/expandable_text_widget.dart';
+import '../cart/cartPage.dart';
 import '../home/main_food_page.dart';
 
 class RecommendedFoodDetails extends StatelessWidget {
@@ -23,9 +25,9 @@ class RecommendedFoodDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<RecommendedProductController>().initProduct();
-    ProductModel recommFood = Get.find<RecommendedProductController>().recommendedProductList[foodId];
 
+    ProductModel productModel = Get.find<RecommendedProductController>().recommendedProductList[foodId];
+    Get.find<RecommendedProductController>().initProduct(productModel, Get.find<CartController>());
 
 
     return Scaffold(
@@ -42,14 +44,37 @@ class RecommendedFoodDetails extends StatelessWidget {
                     Get.toNamed(RouteHelper.getInitial());
           },
                     child: AppIcon(icon: Icons.arrow_back_ios_new)),
-                AppIcon(icon: Icons.shopping_cart_outlined)
+
+                GetBuilder<RecommendedProductController>(builder: (controller){
+                  return Stack(
+                      children: [
+                        AppIcon(icon: Icons.shopping_cart_outlined),
+                        Get.find<RecommendedProductController>().totalItems>=1?
+                        Positioned(
+                            right:0 , top: 0,
+                            child: GestureDetector(
+                                onTap :(){
+                                  Get.to(()=> CartPage());
+                                },
+                                child: AppIcon(icon: Icons.circle, size:20, iconColor:Colors.transparent, backgroundColor: AppColors.mainColor,)
+                            )):
+                        Container(),
+                        Get.find<RecommendedProductController>().totalItems>=1?
+                        Positioned(
+                            right:3 , top: 3,
+                            child: BigText(text:Get.find<RecommendedProductController>().totalItems.toString(),
+                                size:12, color: Colors.white)):
+                        Container(),
+                      ]
+                  );
+                })
 
               ],
             ),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
               child: Container(
-                child: Center(child: BigText(size: 20, text:recommFood.name!)),
+                child: Center(child: BigText(size: 20, text:productModel.name!)),
                 // color: Colors.white,
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
@@ -66,7 +91,7 @@ class RecommendedFoodDetails extends StatelessWidget {
             expandedHeight: 350,
             flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  AppConstant.BASE_URL+"/uploads/"+recommFood.img!,
+                  AppConstant.BASE_URL+"/uploads/"+productModel.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             ))),
@@ -77,7 +102,7 @@ class RecommendedFoodDetails extends StatelessWidget {
               margin: EdgeInsets.only(
                   left: Dimensions.width20, right: Dimensions.width20),
               child: ExpendableTextWidget(
-                  text:recommFood.description.toString(),
+                  text:productModel.description.toString(),
               ))])),
       ]),
       bottomNavigationBar:GetBuilder<RecommendedProductController>(builder:(recommProduct){
@@ -103,14 +128,13 @@ class RecommendedFoodDetails extends StatelessWidget {
                 onTap:(){
             recommProduct.setQuantity(false);
 
-
             },
              child: AppIcon(
                   icon: Icons.remove,
                   backgroundColor: AppColors.mainColor,
                   iconColor: Colors.white)),
               SizedBox(width: Dimensions.width30),
-              BigText(text: "\$ ${recommFood.price!} X  ${ recommProduct.quantity.toString()}"),
+              BigText(text: "\$ ${productModel.price!} X  ${ recommProduct.inCartItems.toString()}"),
               SizedBox(width: Dimensions.width30),
               GestureDetector(
                 onTap:(){
@@ -149,7 +173,12 @@ class RecommendedFoodDetails extends StatelessWidget {
                           backgroundColor: Colors.white,
                           iconColor: AppColors.mainColor)),
                   SizedBox(width: Dimensions.width30),
-                  Container(
+            GestureDetector(
+
+                onTap: () {
+                  recommProduct.addItem(productModel);
+                },
+                 child: Container(
                       width: 200,
                       height: 75,
                       alignment: Alignment.center,
@@ -164,10 +193,14 @@ class RecommendedFoodDetails extends StatelessWidget {
                             BorderRadius.circular(Dimensions.radius20),
                         color: AppColors.mainColor,
                       ),
-                      child: BigText(
-                          text: "\$10.0 | Add to cart",
-                          color: Colors.white,
-                          size: 20))
+
+                          child: BigText(
+                              text: "\$10.0 | Add to cart",
+                              color: Colors.white,
+                              size: 20)
+
+                      )
+            )
                 ]),
           ),
         ]),
