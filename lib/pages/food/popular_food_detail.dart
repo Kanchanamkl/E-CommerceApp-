@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../controllers/cart_controller.dart';
 import '../../controllers/popular_product_controller.dart';
+import '../../routes/route_helper.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -19,9 +20,10 @@ import '../../widgets/small_text.dart';
 import '../home/main_food_page.dart';
 
 class PopularFoodDetails extends StatelessWidget {
-  int pagedId;
+  final int pagedId;
+  final String page;
 
-  PopularFoodDetails({Key? key, required this.pagedId}) : super(key: key);
+  PopularFoodDetails({Key? key, required this.pagedId , required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,29 +61,35 @@ class PopularFoodDetails extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Get.to(() => MainFoodPage());
+                        if(page=="cartPage"){
+                          Get.toNamed(RouteHelper.getCartPage());
+                        }else{
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
                       },
                       child: AppIcon(icon: Icons.arrow_back_ios_new)),
-                 GetBuilder<PopularProductController>(builder: (controller){
+                 GetBuilder<PopularProductController>(builder: (PopProdController){
                    return Stack(
                      children: [
                        AppIcon(icon: Icons.shopping_cart_outlined),
 
-                       Get.find<PopularProductController>().totalItems>=1?
+                       PopProdController.totalItems>=1?
                        Positioned(
                          right:0 , top: 0,
                            child: GestureDetector(
-                               onTap :(){
-                                 Get.to(()=> CartPage());
+                               onTap: () {
+                                 PopProdController.totalItems >=1?Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage()))
+                                     : print("nothing on cart");  // Get.find(PopularProductController) = controller
+                                 // Get.to(()=>CartPage());
                                },
                                child: AppIcon(icon: Icons.circle, size:20, iconColor:Colors.transparent, backgroundColor: AppColors.mainColor,)
                            )
                        ):
                        Container(),
-                       Get.find<PopularProductController>().totalItems>=1?
+                       PopProdController.totalItems>=1?
                        Positioned(
                            right: 5, top: 3,
-                           child: BigText(text:Get.find<PopularProductController>().totalItems.toString(),
+                           child: BigText(text:PopProdController.totalItems.toString(),
                            size:12, color: Colors.white)):
                        Container(),
                      ]

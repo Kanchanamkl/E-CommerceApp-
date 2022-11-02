@@ -52,6 +52,7 @@ class CartController extends GetxController {
             quantity: quantity,
             isExit: true,
             time: DateTime.now().toString(),
+            productM:productModel,
           );
         });
       } else {
@@ -64,6 +65,8 @@ class CartController extends GetxController {
     // _items.forEach((key, value) {
     //   print("ID : " +key.toString() +" quantity is " + value.quantity.toString());
     // });
+
+    update();
 
 
   }

@@ -16,6 +16,7 @@ class PopularProductController extends GetxController {
   PopularProductController({required this.popularProductRepo});
 
   List<dynamic> _popularProductList = [];
+  List<dynamic> _responseProductList =[];
 
   List<dynamic> get popularProductList => _popularProductList;
   late CartController _cartController;
@@ -35,13 +36,16 @@ class PopularProductController extends GetxController {
     if (response.statusCode == 200) {
       print("got product");
       _popularProductList = [];
-      _popularProductList.addAll(Product.fromJson(response.body).products);
+      _responseProductList =Product.fromJson(response.body).products;
+      _popularProductList.addAll(_responseProductList);
       _isLoaded = true;
       update();
     } else {
       print("no product");
     }
   }
+
+
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {

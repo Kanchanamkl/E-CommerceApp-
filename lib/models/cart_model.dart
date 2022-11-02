@@ -1,3 +1,5 @@
+import 'package:e_commerceapp/models/products_model.dart';
+
 class CartModel {
   int? id;
   String? name;
@@ -6,6 +8,7 @@ class CartModel {
   int? quantity;
   bool? isExit;
   String? time;
+  ProductModel? productM;
 
   CartModel(
       {this.id,
@@ -14,7 +17,8 @@ class CartModel {
       this.img,
       this.quantity,
       this.isExit,
-      this.time});
+      this.time,
+      this.productM});
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,5 +27,8 @@ class CartModel {
     img = json['img'];
     quantity = json['quantity'];
     isExit = json['time'];
+    //product= json['product']; XXXX
+    productM = ProductModel.fromJson(json['product']);
+
   }
 }
