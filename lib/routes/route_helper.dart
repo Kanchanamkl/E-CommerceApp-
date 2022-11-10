@@ -8,13 +8,16 @@ import '../pages/food/popular_food_detail.dart';
 import '../pages/food/recommended_food_detail.dart';
 import '../pages/home/home_page.dart';
 import '../pages/home/main_food_page.dart';
+import '../pages/splash/splash_page.dart';
 
 class RouteHelper{
+  static const String splashPage = "/splash-page";
   static const String initial = "/";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
   static const String cartPage = "/cart-page";
 
+  static String getSplachPage() => '$splashPage';
   static String getInitial()=>'$initial';
   static String getPopularFood(int pageId , String page)=>'$popularFood?pageId=$pageId&page=$page';
   static String getRecommendedFood(int foodId , String page)=>'$recommendedFood?foodId=$foodId&page=$page';
@@ -24,7 +27,8 @@ class RouteHelper{
 
 
   static List<GetPage> routes=[
-    GetPage(name: "/", page:()=>HomePage()),
+    GetPage(name: splashPage, page:()=>SplashScreen()),
+    GetPage(name: initial, page:()=>HomePage()),
 
     GetPage(name: popularFood, page:(){
       var page = Get.parameters['page'];
