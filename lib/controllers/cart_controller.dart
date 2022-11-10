@@ -33,6 +33,7 @@ class CartController extends GetxController {
           quantity: value.quantity! + quantity,
           isExit: true,
           time: DateTime.now().toString(),
+          productM: productModel,
         );
       });
 
@@ -99,14 +100,23 @@ class CartController extends GetxController {
   }
 
 
-
-
   // CartsModel -> 0,1,2,3...  -->> e.value (point to values of _itemsMap)
   List<CartModel> get getItemList{
     return     _itemsMap.entries.map((e) {
       return e.value;
     }).toList();
     }
+
+    int get totalAmount{
+    var total=0;
+    _itemsMap.forEach((key, value){
+      total += value.quantity!*value.price!;
+
+    });
+    return total;
+    }
+
+
 
 
 

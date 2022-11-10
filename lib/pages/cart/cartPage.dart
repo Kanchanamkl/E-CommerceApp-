@@ -206,6 +206,91 @@ class CartPage extends StatelessWidget {
                       });
                 }),
               )))
-    ]));
+    ]),
+        bottomNavigationBar:
+        GetBuilder<CartController>(builder: (cartProduct) {
+          return Container(
+            //color: Colors.lightGreenAccent,
+              height: 110,
+              padding: EdgeInsets.only(
+                  top: Dimensions.height20,
+                  bottom: Dimensions.height20,
+                  left: Dimensions.width20,
+                  right: Dimensions.width20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Dimensions.radius20 * 2),
+                  topRight: Radius.circular(Dimensions.radius20 * 2),
+                ),
+                color: AppColors.buttonBackgroundColor,
+              ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //Add and Remove Part
+                    Container(
+                        width: 80,
+                        height: 130,
+                        padding: EdgeInsets.all(Dimensions.height5),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(Dimensions.radius20),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              BigText(
+                                  text:"\$"+ cartProduct.totalAmount.toString()),
+
+                            ])),
+                    // Add to Cart Part
+                    GestureDetector(
+                        onTap: () {
+                          //popularProduct.addItem(productModel);
+                        },
+                        child: Container(
+                            width: 200,
+                            height: 130,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(
+                                top: Dimensions.height10,
+                                bottom: Dimensions.height10,
+                                left: Dimensions.width10,
+                                right: Dimensions.width10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
+                              color: AppColors.mainColor,
+                            ),
+                            child: GestureDetector(
+                                onTap: () {
+                                //  popularProduct.addItem(productModel);
+                                },
+                                child: BigText(
+                                    text: "Check out",
+                                    color: Colors.white,
+                                    size: 20))
+
+                          // child: Row(
+                          //
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children:[
+                          //       Icon(Icons.remove , color: AppColors.signColor),
+                          //       BigText(text: "0" ),
+                          //       Icon(Icons.add , color: AppColors.signColor),
+                          //
+                          //
+                          //     ]
+                          // )
+
+                        ))
+                  ]));
+        }));
+
+
+
+
   }
 }

@@ -47,7 +47,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
-    pageController.dispose(); // release memory after leave the current page
+    pageController.dispose();// release memory after leave the current page
+    super.dispose(); // release memory after leave the current page
+
   }
 
   @override
@@ -137,25 +139,26 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     margin: EdgeInsets.only(
                         left: Dimensions.width20,
                         right: Dimensions.width20,
-                        bottom: Dimensions.height5),
+                        bottom: Dimensions.height10),
                     child: Row(
                       children: [
                         // image section
                         Container(
-                            width: 120,
-                            height: 120,
+                            width: 110,
+                            height: 110,
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.circular(Dimensions.radius20),
                               color: Colors.white38,
                               image:  DecorationImage(
                                 image: NetworkImage(AppConstant.BASE_URL+"/uploads/"+recommendedProduct.img!),
+                                fit: BoxFit.cover,
                               ),
                             )),
                         //text section
                         Expanded(
                           child: Container(
-                            height: 100,
+                            height: 110,
                             // width:200,
                             //color: Colors.cyanAccent,
                             decoration: BoxDecoration(
@@ -190,7 +193,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                       SmallText(
                                           text: "With Sri Lankan recepies "),
                                       SizedBox(
-                                        height: Dimensions.height15,
+                                        height: Dimensions.height10,
                                       ),
                                       Row(
                                           crossAxisAlignment:

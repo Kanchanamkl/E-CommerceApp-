@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import '../pages/cart/cartPage.dart';
 import '../pages/food/popular_food_detail.dart';
 import '../pages/food/recommended_food_detail.dart';
+import '../pages/home/home_page.dart';
 import '../pages/home/main_food_page.dart';
 
 class RouteHelper{
@@ -23,7 +24,7 @@ class RouteHelper{
 
 
   static List<GetPage> routes=[
-    GetPage(name: "/", page:()=>MainFoodPage()),
+    GetPage(name: "/", page:()=>HomePage()),
 
     GetPage(name: popularFood, page:(){
       var page = Get.parameters['page'];
