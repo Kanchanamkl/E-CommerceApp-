@@ -1,6 +1,8 @@
+import 'package:e_commerceapp/pages/cart/cartPage.dart';
 import 'package:e_commerceapp/pages/food/popular_food_detail.dart';
-import 'package:e_commerceapp/pages/food/recomended_food_detail.dart';
+import 'package:e_commerceapp/pages/food/recommended_food_detail.dart';
 import 'package:e_commerceapp/pages/home/food_page_body.dart';
+import 'package:e_commerceapp/pages/splash/splash_page.dart';
 import 'package:e_commerceapp/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,19 +27,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
+    return GetBuilder<PopularProductController>(builder: (_){
+        return GetBuilder<RecommendedProductController>(builder:(_){
 
-    return  GetMaterialApp(
+          return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: 'Flutter Demo',
-
-      home:  MainFoodPage(),
-     // initialRoute: RouteHelper.initiate,
-     // getPages: RouteHelper.routes,
+      //home:  SplashScreen(),
+      initialRoute: RouteHelper.getSplachPage(),  // initialRoute: RouteHelper.getInitial()  -> both are same
+      getPages: RouteHelper.routes,
 
     );
+  });
+});
+
   }
 }
 
