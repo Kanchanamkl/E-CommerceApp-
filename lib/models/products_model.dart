@@ -1,36 +1,39 @@
+import 'package:get/get_connect/http/src/response/response.dart';
+
 class Product {
   int? _totalSize;
   int? _typeId;
   int? _offset;
   late List<ProductModel> _products;
-  List <ProductModel> get products=> _products;
 
 
-  Product({required totalSize, required typeId, required offset, required products}){
+  List<ProductModel> get products => _products;
+
+  Product({required  totalSize,
+      required typeId,
+      required offset,
+      required products,
+
+  }) {
     this._totalSize = totalSize;
-    this._typeId= typeId;
+    this._typeId = typeId;
     this._offset = offset;
     this._products = products;
 
   }
 
-  Product.fromJson(Map<String, dynamic> json) {
-    _totalSize = json['total_size'];
-    _typeId = json['type_id'];
-    _offset = json['offset'];
-    if (json['products'] != null) {
+  Product.fromJson(Map<String, dynamic> jsonResponse) {
+    _totalSize = jsonResponse['total_size'];
+    _typeId = jsonResponse['type_id'];
+    _offset = jsonResponse['offset'];
+    if (jsonResponse['products'] != null) {
       _products = <ProductModel>[];
-      json['products'].forEach((v) {
+      jsonResponse['products'].forEach((v) {
         _products.add(new ProductModel.fromJson(v));
       });
     }
   }
-
-
 }
-
-
-
 
 class ProductModel {
   int? id;
@@ -46,15 +49,15 @@ class ProductModel {
 
   ProductModel(
       {this.id,
-        this.name,
-        this.description,
-        this.price,
-        this.stars,
-        this.img,
-        this.location,
-        this.createdAt,
-        this.updatedAt,
-        this.typeId});
+      this.name,
+      this.description,
+      this.price,
+      this.stars,
+      this.img,
+      this.location,
+      this.createdAt,
+      this.updatedAt,
+      this.typeId});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -68,6 +71,4 @@ class ProductModel {
     updatedAt = json['updated_at'];
     typeId = json['type_id'];
   }
-
-
 }

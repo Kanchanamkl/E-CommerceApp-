@@ -13,7 +13,7 @@ class RecommendedProductRepo extends GetxService {
   Future<Response> getRecommendedProductList() async {
     Response res = await apiClient.getData(AppConstant.RECOMMENDED_PRODUCT_URI);
     if (res.statusCode == 200) {
-      print("got product");
+      print("loaded recomm product to repo");
     } else {
       print("nothing got");
     }
